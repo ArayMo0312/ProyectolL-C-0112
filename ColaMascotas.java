@@ -14,7 +14,12 @@ public class ColaMascotas {
     }
 
     public void enqueue (Mascota dato) { // Agrega objetos de tipo Mascota a ColaMascotas
+        if (yaExiste(dato)) {
+            System.out.println("La mascota ya está en la cola");
+            return;
+        }
         NodoCola nuevo = new NodoCola(dato);
+
         if (estaVacia()) {
             this.head = nuevo;
             this.tail = nuevo;
@@ -39,4 +44,17 @@ public class ColaMascotas {
         return dato;
     }
 
+    public boolean yaExiste (Mascota dato) { // Llama al método recursivo
+        return yaExisteRecursivo(dato, this.head);
+    }
+
+    private boolean yaExisteRecursivo (Mascota dato, NodoCola actual) { // Compara el dato que entra con todos los nodos que existen para saber si ya existe
+        if (actual == null) {
+            return false;
+        }
+        if (actual.getDato().equals(dato)) {
+            return true;
+        }
+        return yaExisteRecursivo(dato, actual.getSiguiente());
+    }
 }
