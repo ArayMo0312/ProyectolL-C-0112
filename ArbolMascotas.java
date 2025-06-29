@@ -46,8 +46,69 @@ public class ArbolMascotas {
         }
     }
 
-    
+    //Metodo para recorrer el arbol en orden
 
-    
+    public void recorridoEnOrden(){
+        recorridoEnOrdenRec(raiz);
+    }
+
+    private void recorridoEnOrdenRec(NodoABB actual){
+        if(actual != null){
+            recorridoEnOrdenRec(actual.izquierdo);
+            System.out.println(actual.mascota);
+            recorridoEnOrdenRec(actual.derecho);
+        }
+    }
+
+    //Metodo para eliminar
+
+    public void eliminar(String nombre){
+        raiz = eliminarRec(raiz, nombre);
+
+    }
+
+    private NodoABB eliminarRec(NodoABB actual, String nombre){
+
+        if(actual == null){return null;}
+
+        if(nombre.compareToIgnoreCase(actual.mascota.getNombre()) < 0) {
+            actual.izquierdo = eliminarRec(actual.izquierdo, nombre);
+        }
+        else if(nombre.compareToIgnoreCase(actual.mascota.getNombre()) > 0) {
+            actual.derecho = eliminarRec(actual.derecho, nombre);
+        }
+        else{
+
+            //Caso 1: Sin hijos
+            if(actual.izquierdo == null && actual.derecho == null){
+                return null;
+            }
+            
+            //Caso 2: Un hijo
+            if(actual.izquierdo == null){
+                return actual.derecho;
+            }
+            if(actual.derecho == null){
+                return actual.izquierdo;
+            }
+
+            //Caso 3: Mas de un hijo
+            else{
+                NodoABB sucesor = encontrarMinimo(actual.derecho);
+                actual.mascota = sucesor.mascota;
+                actual.derecho = eliminarRec(actual.derecho, sucesor.mascota.getNombre());
+            }
+        }
+        return actual;
+
+    }
+
+    //Metod auxiliar
+    private NodoABB encontrarMinimo(NodoABB nodo){
+        while(nodo.izquierdo != null){
+            nodo = nodo.izquierdo;
+        }
+        return nodo;
+    }
 }
 
