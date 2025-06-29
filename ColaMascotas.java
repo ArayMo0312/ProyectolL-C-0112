@@ -57,4 +57,16 @@ public class ColaMascotas {
         }
         return yaExisteRecursivo(dato, actual.getSiguiente());
     }
+
+    public String mostrarColaComoTexto() { // Llama al método recursivo
+        return mostrarColaRecursivo(this.head);
+    }
+
+    private String mostrarColaRecursivo(NodoCola actual) { // Usa el toString para ver todas las mascotas de la cola en forma de texto
+        if (actual == null) {
+            return "";
+        }
+        return actual.getDato().toString() + " \n----------------------\n " + mostrarColaRecursivo(actual.getSiguiente());
+
+    }
 }
