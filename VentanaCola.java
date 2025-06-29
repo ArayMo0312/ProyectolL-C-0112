@@ -1,7 +1,7 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
 
 public class VentanaCola extends JFrame {
     private ColaMascotas cola;
@@ -50,6 +50,34 @@ public class VentanaCola extends JFrame {
             }
         });
 
+        botonAgregar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                agregarNuevaMascota();
+                actualizarCola();
+            }
+        });
+    }
+    public void agregarNuevaMascota() {
+        try {
+            String idString = JOptionPane.showInputDialog(this, "ID de la mascota:");
+            if (idString == null) return;
+            int id = Integer.parseInt(idString);
+
+            String nombre = JOptionPane.showInputDialog(this, "Nombre de la mascota:");
+            if (nombre == null) return;
+
+            String especie = JOptionPane.showInputDialog(this, "Especie de la mascota:");
+            if (especie == null) return;
+
+            String dueño = JOptionPane.showInputDialog(this, "Nombre del dueño:");
+            if (dueño == null) return;
+
+            Mascota nueva = new Mascota(id, nombre, especie, dueño);
+            cola.enqueue(nueva);
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Id inválido. Debe ser un número entero.");
+        }
     }
      private void actualizarCola() {
         areaCola.setText(cola.mostrarColaComoTexto());
