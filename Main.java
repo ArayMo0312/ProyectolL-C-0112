@@ -1,9 +1,15 @@
 import javax.swing.*;
+
 public class Main {
     public static void main(String[] args) {
+
         ColaMascotas cola = new ColaMascotas();
-        VentanaCola ventana = new VentanaCola(cola);
-        SwingUtilities.invokeLater(() -> new VentanaCola(cola));
-        ventana.setVisible(true);
+        ArbolMascotas arbol = new ArbolMascotas();
+
+        SwingUtilities.invokeLater(() -> {
+
+            ClinicaGUI clinica = new ClinicaGUI(cola, arbol);
+            clinica.setVisible(true);
+        });
     }
 }

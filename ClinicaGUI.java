@@ -3,15 +3,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class VentanaCola extends JFrame {
+public class ClinicaGUI extends JFrame {
     private ColaMascotas cola;
+    private ArbolMascotas arbol;
     private JTextArea areaCola; //cola de mascotas
     private JTextArea areaAtendiendo; // mascota siendo atendida
     private JButton botonAtender;
     private JButton botonAgregar;
 
-    public VentanaCola (ColaMascotas cola) {
+    public ClinicaGUI (ColaMascotas cola, ArbolMascotas arbol) {
         this.cola = cola;
+        this.arbol = arbol;
 
         setTitle("Clínica Veterinaria - Cola de Espera");
         setSize(500, 600);
@@ -56,6 +58,18 @@ public class VentanaCola extends JFrame {
                 actualizarCola();
             }
         });
+
+        JButton botonHistorial = new JButton("Ver Historial");
+        botonHistorial.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                JDialog dialogo = new JDialog(ClinicaGUI.this, "Historial de Mascotas", true);
+                dialogo.add(new HistorialMascotasPanel(arbol));
+                dialogo.setSize(400, 300);
+                dialogo.setVisible(true);
+            }
+        });
+        panelBotones.add(botonHistorial);
+
     }
     public void agregarNuevaMascota() {
         try {
@@ -74,10 +88,12 @@ public class VentanaCola extends JFrame {
 
             Mascota nueva = new Mascota(id, nombre, especie, dueño);
             cola.enqueue(nueva);
+            arbol.insertar(nueva);
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Id inválido. Debe ser un número entero.");
         }
+
     }
      private void actualizarCola() {
         areaCola.setText(cola.mostrarColaComoTexto());

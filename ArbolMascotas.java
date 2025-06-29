@@ -1,3 +1,5 @@
+import java.util.function.Consumer;
+
 public class ArbolMascotas {
     private NodoABB raiz;
 
@@ -48,15 +50,15 @@ public class ArbolMascotas {
 
     //Metodo para recorrer el arbol en orden
 
-    public void recorridoEnOrden(){
-        recorridoEnOrdenRec(raiz);
+    public void recorridoEnOrden(Consumer<Mascota> accion){
+        recorridoEnOrdenRec(raiz, accion);
     }
 
-    private void recorridoEnOrdenRec(NodoABB actual){
+    private void recorridoEnOrdenRec(NodoABB actual, Consumer<Mascota> accion){
         if(actual != null){
-            recorridoEnOrdenRec(actual.izquierdo);
-            System.out.println(actual.mascota);
-            recorridoEnOrdenRec(actual.derecho);
+            recorridoEnOrdenRec(actual.izquierdo, accion);
+            accion.accept(actual.mascota);
+            recorridoEnOrdenRec(actual.derecho, accion);
         }
     }
 
@@ -100,7 +102,6 @@ public class ArbolMascotas {
             }
         }
         return actual;
-
     }
 
     //Metod auxiliar
