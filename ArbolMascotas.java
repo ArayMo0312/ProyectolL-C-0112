@@ -10,14 +10,14 @@ public class ArbolMascotas {
     private NodoABB insertarRec(NodoABB actual, Mascota nuevaMascota){
         if(actual == null)return new NodoABB(nuevaMascota);             //Si no hay un nodo anterior pone a la nueva mascota como un nuevo nodo
 
-        if(nuevaMascota.getNombre().compareToIgnoreCase(actual.mascota.getNombre()) < 0 ){   //Ordena alfabeticamente 
+        if(nuevaMascota.getId() < actual.mascota.getId()){   //Ordena alfabeticamente 
             actual.izquierdo = insertarRec(actual.izquierdo, nuevaMascota);
         }
-        else if(nuevaMascota.getNombre().compareToIgnoreCase(actual.mascota.getNombre()) > 0 ){     //Ordena alfabeticamente
+        else if(nuevaMascota.getId() > actual.mascota.getId() ){     //Ordena alfabeticamente
             actual.derecho = insertarRec(actual.derecho, nuevaMascota);
         }
         else{
-            System.out.println("Macota con nombre duplicado no insertada: " + nuevaMascota.getNombre());
+            throw new IllegalArgumentException("Ya existe una mascota con el ID: " + nuevaMascota.getId());
         }
 
         return actual;

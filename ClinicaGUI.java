@@ -87,8 +87,14 @@ public class ClinicaGUI extends JFrame {
             if (dueño == null) return;
 
             Mascota nueva = new Mascota(id, nombre, especie, dueño);
-            cola.enqueue(nueva);
-            arbol.insertar(nueva);
+            try {
+                arbol.insertar(nueva);
+                cola.enqueue(nueva);
+                
+            } catch (IllegalArgumentException e) {
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                
+            }
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Id inválido. Debe ser un número entero.");

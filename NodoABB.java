@@ -1,8 +1,5 @@
-
-
 public class NodoABB {
     
-
     Mascota mascota;
     NodoABB izquierdo, derecho;
 
