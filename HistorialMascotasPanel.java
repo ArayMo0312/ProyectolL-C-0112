@@ -14,6 +14,7 @@ public class HistorialMascotasPanel extends JPanel {
         setLayout(new BorderLayout());
 
         // Área principal para mostrar historial
+
         areaHistorial = new JTextArea();
         areaHistorial.setEditable(false);
         areaHistorial.setFont(new Font("Monospaced", Font.PLAIN, 12));
@@ -21,11 +22,14 @@ public class HistorialMascotasPanel extends JPanel {
         scroll.setBorder(BorderFactory.createTitledBorder("Historial completo"));
         add(scroll, BorderLayout.CENTER);
 
-        // Panel de acciones
+        // Panel inferior de acciones (buscar y eliminar por ID)
+
         JPanel panelAcciones = new JPanel();
         campoBusqueda = new JTextField(10);
         botonBuscar = new JButton("Buscar");
         botonEliminar = new JButton("Eliminar");
+
+        //Adicion de componentes al panel de acciones
 
         panelAcciones.add(new JLabel("ID:"));
         panelAcciones.add(campoBusqueda);
@@ -33,17 +37,21 @@ public class HistorialMascotasPanel extends JPanel {
         panelAcciones.add(botonEliminar);
         add(panelAcciones, BorderLayout.SOUTH);
 
-        // Eventos
+        // Eventos al pulssar los botones 
         botonBuscar.addActionListener((ActionEvent e) -> buscarMascota());
         botonEliminar.addActionListener((ActionEvent e) -> eliminarMascota());
 
         mostrarHistorial();
     }
 
+    //Metodo para mostrar todas las Mascotas en cola y atedidas recorriendo el arbol
+
     private void mostrarHistorial() {
         areaHistorial.setText("");
         arbol.recorridoEnOrden(m -> areaHistorial.append(m.toString() + "\n\n"));
     }
+
+    //Metodo para buscar una mascota por ID
 
     private void buscarMascota() {
         try{
@@ -59,6 +67,8 @@ public class HistorialMascotasPanel extends JPanel {
             JOptionPane.showMessageDialog(this, "El ID debe ser un numero entero.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+    //Metodo para eliminar una mascota por ID
 
     private void eliminarMascota() {
         try {
