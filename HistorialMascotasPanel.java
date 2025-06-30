@@ -1,6 +1,6 @@
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import javax.swing.*;
 
 public class HistorialMascotasPanel extends JPanel {
     private ArbolMascotas arbol;
@@ -27,7 +27,7 @@ public class HistorialMascotasPanel extends JPanel {
         botonBuscar = new JButton("Buscar");
         botonEliminar = new JButton("Eliminar");
 
-        panelAcciones.add(new JLabel("Nombre:"));
+        panelAcciones.add(new JLabel("ID:"));
         panelAcciones.add(campoBusqueda);
         panelAcciones.add(botonBuscar);
         panelAcciones.add(botonEliminar);
@@ -46,24 +46,35 @@ public class HistorialMascotasPanel extends JPanel {
     }
 
     private void buscarMascota() {
-        String nombre = campoBusqueda.getText().trim();
-        Mascota m = arbol.buscar(nombre);
-        if (m != null) {
-            JOptionPane.showMessageDialog(this, m.toString(), "Mascota encontrada", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "No se encontró la mascota.", "Error", JOptionPane.ERROR_MESSAGE);
+        try{
+            int id = Integer.parseInt(campoBusqueda.getText().trim());
+            Mascota m = arbol.buscar(id);
+            if (m != null) {
+                JOptionPane.showMessageDialog(this, m.toString(), "Mascota encontrada", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró la mascota.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "El ID debe ser un numero entero.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     private void eliminarMascota() {
-        String nombre = campoBusqueda.getText().trim();
-        Mascota m = arbol.buscar(nombre);
-        if (m != null) {
-            arbol.eliminar(nombre);
-            mostrarHistorial();
-            JOptionPane.showMessageDialog(this, "Mascota eliminada.", "Eliminación exitosa", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "Mascota no encontrada.", "Error", JOptionPane.ERROR_MESSAGE);
+        try {
+            int id = Integer.parseInt(campoBusqueda.getText().trim());
+            Mascota m = arbol.buscar(id);
+            if (m != null) {
+                arbol.eliminar(id);
+                mostrarHistorial();
+                JOptionPane.showMessageDialog(this, "Mascota eliminada.", "Eliminación exitosa", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Mascota no encontrada.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "El ID debe ser un numero entero.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
+

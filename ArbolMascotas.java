@@ -25,26 +25,26 @@ public class ArbolMascotas {
 
     //Metodo para buscar por nombre
 
-    public Mascota buscar(String nombre){
-        return buscarRec(raiz, nombre);
+    public Mascota buscar(int id){
+        return buscarRec(raiz, id);
     }
 
-    private Mascota buscarRec(NodoABB actual, String nombre){
+    private Mascota buscarRec(NodoABB actual, int id){
 
         if(actual == null){
             return null;
         }
 
-        if(nombre.equalsIgnoreCase(actual.mascota.getNombre())){
+        if(id == actual.mascota.getId()){
             return actual.mascota;
         }
 
-        if(nombre.compareToIgnoreCase(actual.mascota.getNombre()) < 0){
-            return buscarRec(actual.izquierdo, nombre);
+        if(id < actual.mascota.getId()){
+            return buscarRec(actual.izquierdo, id);
         }
 
         else{
-            return buscarRec(actual.derecho, nombre);
+            return buscarRec(actual.derecho, id);
         }
     }
 
@@ -64,20 +64,20 @@ public class ArbolMascotas {
 
     //Metodo para eliminar
 
-    public void eliminar(String nombre){
-        raiz = eliminarRec(raiz, nombre);
+    public void eliminar(int id){
+        raiz = eliminarRec(raiz, id);
 
     }
 
-    private NodoABB eliminarRec(NodoABB actual, String nombre){
+    private NodoABB eliminarRec(NodoABB actual, int id){
 
         if(actual == null){return null;}
 
-        if(nombre.compareToIgnoreCase(actual.mascota.getNombre()) < 0) {
-            actual.izquierdo = eliminarRec(actual.izquierdo, nombre);
+        if(id < actual.mascota.getId()) {
+            actual.izquierdo = eliminarRec(actual.izquierdo, id);
         }
-        else if(nombre.compareToIgnoreCase(actual.mascota.getNombre()) > 0) {
-            actual.derecho = eliminarRec(actual.derecho, nombre);
+        else if(id > actual.mascota.getId()) {
+            actual.derecho = eliminarRec(actual.derecho, id);
         }
         else{
 
@@ -98,7 +98,7 @@ public class ArbolMascotas {
             else{
                 NodoABB sucesor = encontrarMinimo(actual.derecho);
                 actual.mascota = sucesor.mascota;
-                actual.derecho = eliminarRec(actual.derecho, sucesor.mascota.getNombre());
+                actual.derecho = eliminarRec(actual.derecho, sucesor.mascota.getId());
             }
         }
         return actual;

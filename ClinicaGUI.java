@@ -1,7 +1,7 @@
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.*;
 
 public class ClinicaGUI extends JFrame {
     private ColaMascotas cola;
@@ -62,7 +62,7 @@ public class ClinicaGUI extends JFrame {
         JButton botonHistorial = new JButton("Ver Historial");
         botonHistorial.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                JDialog dialogo = new JDialog(ClinicaGUI.this, "Historial de Mascotas", true);
+                JDialog dialogo = new JDialog(ClinicaGUI.this, "Clinica Veterinaria - Historial de Mascotas", true);
                 dialogo.add(new HistorialMascotasPanel(arbol));
                 dialogo.setSize(400, 300);
                 dialogo.setVisible(true);
