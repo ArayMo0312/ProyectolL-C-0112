@@ -1,3 +1,9 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.function.Consumer;
 
 public class ArbolMascotas {
@@ -113,6 +119,38 @@ public class ArbolMascotas {
             nodo = nodo.izquierdo;
         }
         return nodo;
+    }
+
+    public void guardarEnArchivo(String nombreArchivo){
+        try(PrintWriter writter =  new PrintWriter(new FileWriter(nombreArchivo))){
+            recorridoEnOrden(mascota -> writter.println(mascota.getId() + ";" + mascota.getNombre() + ";" + mascota.getEspecie() + ";" + mascota.getNombreDueño()));
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void cargarDesdeArchivo(String nombreArchivo){
+        File archivo = new File(nombreArchivo);
+        if(!archivo.exists()){
+            return;
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(archivo))){
+            String linea;
+            while((linea = reader.readLine()) != null){
+                String[] partes = linea.split(";");
+                if (partes.length == 4){
+                    int id = Integer.parseInt(partes[0]);
+                    String nombre = partes[1];
+                    String especie = partes[2];
+                    String dueño =partes [3];
+                    insertar(new Mascota(id, nombre, especie, nombre));
+                }
+            }
+        } catch (IOException | NumberFormatException e) {
+            e.printStackTrace();
+        }
     }
 }
 

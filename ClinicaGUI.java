@@ -102,6 +102,8 @@ public class ClinicaGUI extends JFrame {
             try {
                 arbol.insertar(nueva);
                 cola.enqueue(nueva);
+
+                arbol.guardarEnArchivo("historial.txt");
                 
             } catch (IllegalArgumentException e) {
                 JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
