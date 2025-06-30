@@ -1,3 +1,6 @@
+import java.io.*;
+import javax.swing.JOptionPane;
+
 public class ColaMascotas {
     private NodoCola head;
     private NodoCola tail;
@@ -15,8 +18,7 @@ public class ColaMascotas {
 
     public void enqueue (Mascota dato) { // Agrega objetos de tipo Mascota a ColaMascotas
         if (yaExiste(dato)) {
-            System.out.println("La mascota ya está en la cola");
-            return;
+            throw new IllegalArgumentException("Mascota ya está en la cola.");
         }
         NodoCola nuevo = new NodoCola(dato);
 
@@ -68,5 +70,48 @@ public class ColaMascotas {
         }
         return actual.getDato().toString() + " \n----------------------\n " + mostrarColaRecursivo(actual.getSiguiente());
 
+    }
+
+    public void guardarArchivoCola(String archivo) { // Guarda el archivo utilizando el método recursivo para imprimir todas las mascotas de la cola
+        try (PrintWriter writer = new PrintWriter(new FileWriter(archivo))) {
+            guardarRecursivo(writer, head);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void guardarRecursivo(PrintWriter writer, NodoCola actual) {
+        if (actual == null) return;
+
+        Mascota m =actual.getDato();
+        String linea = m.getId() + "|" + m.getNombre() + "|" + m.getEspecie() + "|" + m.getNombreDueño() + "|" + m.getHistorial().replace("\n", "\\n") + "|" + m.getVecesAtendida(); // Cada mascota será guardada en una línea, separando los datos por "|" y borrando saltos de línea del historial
+        writer.println(linea); // Escribe la línea en el archivo
+        guardarRecursivo(writer, actual.getSiguiente()); //Llamado recursivo
+    }
+
+    public void cargarColaArchivo (String nombreArchivo) { // Lee los datos de cada línea del archivo, los asigna a los atributos de mascota y agrega las mascotas que estaban en la cola de nuevo a la cola
+        try (BufferedReader reader = new BufferedReader(new FileReader(nombreArchivo))) {
+            String linea;
+            while ((linea = reader.readLine()) != null) {
+                String[] partes = linea.split("\\|"); // Divide el string en partes de un array utilizando "|" como separador
+                if (partes.length >= 6) {
+                    int id = Integer.parseInt(partes[0]); // Ya que viene de un String, hay que hacer un parse para que el ID pase a ser int
+                    String nombre = partes[1];
+                    String especie = partes[2];
+                    String dueño = partes[3];
+                    String historial = partes[4].replace("\\n", "\n"); //Vuelve a agregar los saltos de línea
+                    int veces = Integer.parseInt(partes[5]);
+
+                    Mascota mascota = new Mascota(id, nombre, especie, dueño);
+                    mascota.agregarHistorial(historial);
+                    mascota.setVecesAtendida(veces);
+                    enqueue(mascota);
+                }
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error al leer el archivo: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error de formato en los datos del archivo.", "Error de datos", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }
