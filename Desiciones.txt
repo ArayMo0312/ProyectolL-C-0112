@@ -1,0 +1,33 @@
+//Acuerdo de pareja://
+
+-David desarrolló la estructura del árbol binario de búsqueda (ArbolMascotas), el manejo del historial de mascotas y el diseño del panel HistorialMascotasPanel.
+
+-Jarek implementó la estructura de la cola de atención (ColaMascotas) y su funcionalidad básica en la interfaz.
+
+-Ambos trabajaron de forma independiente en sus respectivas interfaces, y posteriormente colaboraron para integrarlas dentro de una sola ventana principal (ClinicaGUI), asegurando la comunicación entre la cola, el árbol y los botones de control.
+
+
+//Decisiones de diseño://
+
+-Se definió que el árbol estaría ordenado por ID para evitar errores con nombres repetidos y permitir búsquedas mas realistas.
+
+-Se implementó una única interfaz principal (ClinicaGUI) desde donde se pueden registrar mascotas, atenderlas y ver el historial.
+
+-El historial se rediseñó como un JPanel independiente (HistorialMascotasPanel) para facilitar su integración desde la ventana principal mediante un JDialog.
+
+-La interfaz evita el uso de múltiples ventanas flotantes, priorizando la experiencia del usuario.
+
+
+//Decisiones de implementación://
+
+-Se utilizaron estructuras dinámicas implementadas desde cero: una lista enlazada para la cola y un árbol binario de búsqueda para el historial.
+
+-Se evitó el uso de System.out.println y entrada por consola, adaptando todos los mensajes al entorno gráfico mediante JOptionPane.
+
+-Se implementó control de errores al registrar mascotas con ID duplicado usando excepciones y validación visual.
+
+-Se garantizó que las mascotas insertadas se agregan tanto al árbol como a la cola, según corresponda.
+
+
+//Puntos de mejora://
+
