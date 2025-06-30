@@ -20,6 +20,18 @@ public class ClinicaGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
+        // Menú desplegable para el botón de guardar
+        JMenuBar menuBar = new JMenuBar();
+        setJMenuBar(menuBar);
+        JMenu menuArchivo = new JMenu("Archivo");
+        menuBar.add(menuArchivo);
+        JMenuItem guardarItem = new JMenuItem("Guardar estado");
+        menuArchivo.add(guardarItem);
+        guardarItem.addActionListener(e ->{ // Agrega la acción de llamar al método guardar al botón de guardar
+            cola.guardarArchivoCola("cola.txt");
+            JOptionPane.showMessageDialog(this, "Estado guardado en archivo.");
+        });
+        
         areaAtendiendo = new JTextArea(5,40);
         areaAtendiendo.setEditable(false);
         areaAtendiendo.setBorder(BorderFactory.createTitledBorder("Mascota en Atención"));
@@ -71,7 +83,7 @@ public class ClinicaGUI extends JFrame {
         panelBotones.add(botonHistorial);
 
     }
-    public void agregarNuevaMascota() {
+    public void agregarNuevaMascota() { // ventana de input para el botón Agregar
         try {
             String idString = JOptionPane.showInputDialog(this, "ID de la mascota:");
             if (idString == null) return;
