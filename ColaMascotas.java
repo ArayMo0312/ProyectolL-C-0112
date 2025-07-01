@@ -95,7 +95,7 @@ public class ColaMascotas {
             while ((linea = reader.readLine()) != null) {
                 String[] partes = linea.split("\\|"); // Divide el string en partes de un array utilizando "|" como separador
                 if (partes.length >= 6) {
-                    int id = Integer.parseInt(partes[0]); // Ya que viene de un String, hay que hacer un parse para que el ID pase a ser int
+                    int id = Integer.parseInt(partes[0]); // Ya que viene de un String, hay que hacer un parse para que el ID vuelva a ser int
                     String nombre = partes[1];
                     String especie = partes[2];
                     String dueño = partes[3];

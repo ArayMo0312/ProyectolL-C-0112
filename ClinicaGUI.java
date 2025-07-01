@@ -29,6 +29,7 @@ public class ClinicaGUI extends JFrame {
         menuArchivo.add(guardarItem);
         guardarItem.addActionListener(e ->{ // Agrega la acción de llamar al método guardar al botón de guardar
             cola.guardarArchivoCola("cola.txt");
+            arbol.guardarEnArchivo("historial.txt");
             JOptionPane.showMessageDialog(this, "Estado guardado en archivo.");
         });
         
@@ -102,8 +103,6 @@ public class ClinicaGUI extends JFrame {
             try {
                 arbol.insertar(nueva);
                 cola.enqueue(nueva);
-
-                arbol.guardarEnArchivo("historial.txt");
                 
             } catch (IllegalArgumentException e) {
                 JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -115,7 +114,7 @@ public class ClinicaGUI extends JFrame {
         }
 
     }
-     private void actualizarCola() {
+     public void actualizarCola() {
         areaCola.setText(cola.mostrarColaComoTexto());
     }
 }
