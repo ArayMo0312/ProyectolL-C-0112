@@ -41,4 +41,5 @@ public class Mascota {
     public void setEspecie(String especie) {this.especie = especie;}
     public void setNombreDueño(String nombreDueño) {this.nombreDueño = nombreDueño;}
     public void setVecesAtendida(int vecesAtendida) {this.vecesAtendida = vecesAtendida;}
+    public void setHistorial (String historial) {this.historial = historial;}
 }
