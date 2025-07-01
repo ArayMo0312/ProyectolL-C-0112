@@ -123,7 +123,7 @@ public class ArbolMascotas {
 
     public void guardarEnArchivo(String nombreArchivo){
         try(PrintWriter writter =  new PrintWriter(new FileWriter(nombreArchivo))){
-            recorridoEnOrden(mascota -> writter.println(mascota.getId() + ";" + mascota.getNombre() + ";" + mascota.getEspecie() + ";" + mascota.getNombreDueño()));
+            recorridoEnOrden(mascota -> writter.println(mascota.getId() + ";" + mascota.getNombre() + ";" + mascota.getEspecie() + ";" + mascota.getNombreDueño() + ";" + mascota.getHistorial().replace("\n", "\\n") + ";" + mascota.getVecesAtendida()));
         }
         catch (IOException e){
             e.printStackTrace();
@@ -140,13 +140,19 @@ public class ArbolMascotas {
             String linea;
             while((linea = reader.readLine()) != null){
                 String[] partes = linea.split(";");
-                if (partes.length == 4){
+                if (partes.length >= 6){
                     int id = Integer.parseInt(partes[0]);
                     String nombre = partes[1];
                     String especie = partes[2];
                     String dueño =partes [3];
-                    insertar(new Mascota(id, nombre, especie, nombre));
+                    String historial = partes[4].replace("\n", "\\n");
+                    int veces = Integer.parseInt(partes[5]);
+                    Mascota m = new Mascota(id, nombre, especie, dueño);
+                    m.setHistorial(historial);
+                    m.setVecesAtendida(veces);
+                    insertar(m);
                 }
+
             }
         } catch (IOException | NumberFormatException e) {
             e.printStackTrace();
