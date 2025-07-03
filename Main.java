@@ -8,7 +8,7 @@ public class Main {
         
         arbol.cargarDesdeArchivo("historial.txt");
 
-        cola.cargarColaArchivo("cola.txt"); // Llama siempre al método de carga antes de mostrar la interfaz
+        cola.cargarColaArchivo("cola.txt", arbol); // Llama siempre al método de carga antes de mostrar la interfaz
 
         System.out.println("Ruta actual: " + new java.io.File(".").getAbsolutePath());
         SwingUtilities.invokeLater(() -> {
