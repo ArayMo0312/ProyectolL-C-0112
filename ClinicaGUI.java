@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import java.util.Random;
 
 public class ClinicaGUI extends JFrame {
     private ColaMascotas cola;
@@ -86,9 +87,7 @@ public class ClinicaGUI extends JFrame {
     }
     public void agregarNuevaMascota() { // ventana de input para el botón Agregar
         try {
-            String idString = JOptionPane.showInputDialog(this, "ID de la mascota:");
-            if (idString == null) return;
-            int id = Integer.parseInt(idString);
+            int id = generarIdUnico();
 
             String nombre = JOptionPane.showInputDialog(this, "Nombre de la mascota:");
             if (nombre == null) return;
@@ -116,5 +115,14 @@ public class ClinicaGUI extends JFrame {
     }
      public void actualizarCola() {
         areaCola.setText(cola.mostrarColaComoTexto());
+    }
+    
+    private int generarIdUnico() {
+        Random random = new Random();
+        int id;
+        do {
+            id = random.nextInt(Integer.MAX_VALUE); // Número entre 0 y el valor máximo de Integer
+        } while (arbol.buscar(id) != null);
+        return id;
     }
 }
