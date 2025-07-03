@@ -83,35 +83,28 @@ public class ColaMascotas {
     private void guardarRecursivo(PrintWriter writer, NodoCola actual) {
         if (actual == null) return;
 
-        Mascota m =actual.getDato();
-        String linea = m.getId() + "|" + m.getNombre() + "|" + m.getEspecie() + "|" + m.getNombreDueño() + "|" + m.getHistorial().replace("\n", "\\n") + "|" + m.getVecesAtendida(); // Cada mascota será guardada en una línea, separando los datos por "|" y borrando saltos de línea del historial
-        writer.println(linea); // Escribe la línea en el archivo
+        writer.println(actual.getDato().getId()); // Escribe el ID en el archivo
         guardarRecursivo(writer, actual.getSiguiente()); //Llamado recursivo
     }
 
-    public void cargarColaArchivo (String nombreArchivo) { // Lee los datos de cada línea del archivo, los asigna a los atributos de mascota y agrega las mascotas que estaban en la cola de nuevo a la cola
+    public void cargarColaArchivo (String nombreArchivo, ArbolMascotas arbol) { // Lee los datos de cada línea del archivo, los asigna a los atributos de mascota y agrega las mascotas que estaban en la cola de nuevo a la cola
         try (BufferedReader reader = new BufferedReader(new FileReader(nombreArchivo))) {
             String linea;
             while ((linea = reader.readLine()) != null) {
-                String[] partes = linea.split("\\|"); // Divide el string en partes de un array utilizando "|" como separador
-                if (partes.length >= 6) {
-                    int id = Integer.parseInt(partes[0]); // Ya que viene de un String, hay que hacer un parse para que el ID vuelva a ser int
-                    String nombre = partes[1];
-                    String especie = partes[2];
-                    String dueño = partes[3];
-                    String historial = partes[4].replace("\\n", "\n"); //Vuelve a agregar los saltos de línea
-                    int veces = Integer.parseInt(partes[5]);
-
-                    Mascota mascota = new Mascota(id, nombre, especie, dueño);
-                    mascota.agregarHistorial(historial);
-                    mascota.setVecesAtendida(veces);
-                    enqueue(mascota);
+                try {
+                    int id = Integer.parseInt(linea.trim()); // Lee la línea y saca el ID quitando espacios en blanco
+                    Mascota m = arbol.buscar(id);
+                    if (m != null) {
+                        enqueue(m);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Mascota con el ID: " + id + " no encontrada en el registro.", "Error al cargar cola", JOptionPane.ERROR_MESSAGE);
+                }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "ID inválido en el archivo: " + linea, "Error de formato", JOptionPane.ERROR_MESSAGE);
                 }
             }
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error al leer el archivo: " + e.getMessage());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Error de formato en los datos del archivo.", "Error de datos", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No se pudo cargar el archivo de la cola: " + e.getMessage(), "Error de lectura", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
