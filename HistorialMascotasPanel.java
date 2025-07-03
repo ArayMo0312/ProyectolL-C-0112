@@ -84,6 +84,7 @@ public class HistorialMascotasPanel extends JPanel {
             Mascota m = arbol.buscar(id);
             if (m != null) {
                 arbol.eliminar(id);
+                arbol.guardarEnArchivo("historial.txt");
                 mostrarHistorial();
                 JOptionPane.showMessageDialog(this, "Mascota eliminada.", "Eliminación exitosa", JOptionPane.INFORMATION_MESSAGE);
             } else {
@@ -112,6 +113,7 @@ public class HistorialMascotasPanel extends JPanel {
 
             cola.enqueue(m);
             ventanaPadre.actualizarCola();
+            cola.guardarArchivoCola("cola.txt");
             JOptionPane.showMessageDialog(this, "Mascota encolada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             
             

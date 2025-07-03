@@ -1,8 +1,8 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
 import java.util.Random;
+import javax.swing.*;
 
 public class ClinicaGUI extends JFrame {
     private ColaMascotas cola;
@@ -63,6 +63,8 @@ public class ClinicaGUI extends JFrame {
                     areaAtendiendo.setText ("No hay mascotas en espera.");
                 }
                 actualizarCola();
+                cola.guardarArchivoCola("cola.txt");
+                arbol.guardarEnArchivo("historial.txt");
             }
         });
 
@@ -101,6 +103,7 @@ public class ClinicaGUI extends JFrame {
             Mascota nueva = new Mascota(id, nombre, especie, dueño);
             try {
                 arbol.insertar(nueva);
+                arbol.guardarEnArchivo("historial.txt");
                 
                 
             } catch (IllegalArgumentException e) {
