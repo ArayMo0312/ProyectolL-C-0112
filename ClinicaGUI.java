@@ -72,10 +72,10 @@ public class ClinicaGUI extends JFrame {
             }
         });
 
-        JButton botonHistorial = new JButton("Ver Historial");
+        JButton botonHistorial = new JButton("Ver Registro");
         botonHistorial.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                JDialog dialogo = new JDialog(ClinicaGUI.this, "Clinica Veterinaria - Historial de Mascotas", true);
+                JDialog dialogo = new JDialog(ClinicaGUI.this, "Clinica Veterinaria - Registro de Mascotas", true);
                 dialogo.add(new HistorialMascotasPanel(arbol));
                 dialogo.setSize(400, 300);
                 dialogo.setVisible(true);
