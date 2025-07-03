@@ -76,8 +76,8 @@ public class ClinicaGUI extends JFrame {
         botonHistorial.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 JDialog dialogo = new JDialog(ClinicaGUI.this, "Clinica Veterinaria - Registro de Mascotas", true);
-                dialogo.add(new HistorialMascotasPanel(arbol, cola));
-                dialogo.setSize(400, 300);
+                dialogo.add(new HistorialMascotasPanel(ClinicaGUI.this, arbol, cola));
+                dialogo.setSize(425, 350);
                 dialogo.setVisible(true);
             }
         });
@@ -110,7 +110,7 @@ public class ClinicaGUI extends JFrame {
             }
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Id inválido. Debe ser un número entero.");
+            JOptionPane.showMessageDialog(this, "ID inválido. Debe ser un número entero.");
         }
 
     }
