@@ -76,7 +76,7 @@ public class ClinicaGUI extends JFrame {
         botonHistorial.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 JDialog dialogo = new JDialog(ClinicaGUI.this, "Clinica Veterinaria - Registro de Mascotas", true);
-                dialogo.add(new HistorialMascotasPanel(arbol));
+                dialogo.add(new HistorialMascotasPanel(arbol, cola));
                 dialogo.setSize(400, 300);
                 dialogo.setVisible(true);
             }
@@ -102,7 +102,7 @@ public class ClinicaGUI extends JFrame {
             Mascota nueva = new Mascota(id, nombre, especie, dueño);
             try {
                 arbol.insertar(nueva);
-                cola.enqueue(nueva);
+                
                 
             } catch (IllegalArgumentException e) {
                 JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
