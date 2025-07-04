@@ -1,10 +1,26 @@
 //Acuerdo de pareja://
 
--David desarrolló la estructura del árbol binario de búsqueda (ArbolMascotas), el manejo del historial de mascotas y el diseño del panel HistorialMascotasPanel.
++Responsabilidades Jarek:
 
--Jarek implementó la estructura de la cola de atención (ColaMascotas) y su funcionalidad básica en la interfaz.
+ -Implementar la lista enlazada dinámica
+ -Agregar mascota a la cola
+ -Atender mascota
+ -Mostrar cola en GUI
+ -Controlar que no se repita el registro de una mascota
+ -Diseñar la interfaz gráfica relacionada con la cola:
+ -Mostrar quién está en la cola
+ -Mostrar quién está siendo atendido
 
--Ambos trabajaron de forma independiente en sus respectivas interfaces, y posteriormente colaboraron para integrarlas dentro de una sola ventana principal (ClinicaGUI), asegurando la comunicación entre la cola, el árbol y los botones de control.
++Responsabilidades David:
+ -Implementar el ABB
+ -Insertar mascota nueva
+ -Buscar mascota por nombre o ID
+ -Eliminar mascota del registro
+ -Recorrer el árbol en orden
+ -Mostrar historial ordenado en GUI
+ -Interfaz relacionada con el árbol:
+ -Consultar historial de mascotas
+ -Buscar o eliminar mascotas
 
 
 //Decisiones de diseño://
@@ -28,6 +44,17 @@
 
 -Se garantizó que las mascotas insertadas se agregan tanto al árbol como a la cola, según corresponda.
 
+-Se implementó persistencia de datos utilizando archivos de texto (.txt).
+
+-Se incluyeron bloques `try-catch` en la carga y escritura de archivos, para evitar errores en tiempo de ejecución y garantizar una experiencia estable.
+
 
 //Puntos de mejora://
+
+-Agregar validación visual más completa, como control de campos vacíos o mal ingresados en el formulario de registro.
+
+-Mejorar el diseño visual y la disposición de componentes en la interfaz para una experiencia de usuario más clara e intuitiva.
+
+
+
 

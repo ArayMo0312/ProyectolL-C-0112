@@ -26,10 +26,21 @@ Este proyecto de Programación I simula el funcionamiento de una clínica veteri
 - Se utiliza una lista enlazada para representar la cola de espera (FIFO).
 - Al atender una mascota, se actualiza el área correspondiente en pantalla.
 
+### Cola de atención
+- Se utiliza una lista enlazada simple, implementada desde cero, para representar la cola de espera de las mascotas.
+- Las mascotas se agregan a la cola al ser encoladas desde el historial de registro con su id respectivo.
+- La atención se realiza bajo la lógica FIFO (First In, First Out), es decir, se atiende primero a la mascota que llegó primero.
+- La mascota atendida se elimina de la cola y se muestra su información en pantalla mediante la interfaz gráfica.
+- La cola se actualiza visualmente en tiempo real para reflejar los cambios tras cada registro o atención.
+
 ### Historial de mascotas
 - Se accede a través de un botón en la GUI principal.
 - Se muestra un recorrido inorden del árbol binario (ordenado por ID).
 - Se puede buscar y eliminar mascotas mediante su ID.
+- El historial de mascotas se guarda automáticamente en un archivo de texto (`historial.txt`) y se carga nuevamente al iniciar el programa, asegurando la persistencia de datos.
+- Se pueden buscar mascotas por su ID desde la interfaz gráfica, y también se permite eliminar registros individuales del árbol.
+- El árbol binario de búsqueda se recorre de forma recursiva para mostrar la información en orden.
+- Se implementó manejo de errores mediante bloques `try-catch` para asegurar que fallos en archivos o entradas inválidas no interrumpan el funcionamiento general del sistema.
 
 ---
 
