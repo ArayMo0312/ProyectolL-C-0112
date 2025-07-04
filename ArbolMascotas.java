@@ -145,7 +145,7 @@ public class ArbolMascotas {
                     String nombre = partes[1];
                     String especie = partes[2];
                     String dueño =partes [3];
-                    String historial = partes[4].replace("\n", "\\n");
+                    String historial = partes[4].replace("\\n", "\n");
                     int veces = Integer.parseInt(partes[5]);
                     Mascota m = new Mascota(id, nombre, especie, dueño);
                     m.setHistorial(historial);

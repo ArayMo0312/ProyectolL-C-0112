@@ -59,7 +59,8 @@ public class ClinicaGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 mascotaActual = cola.dequeue();
                 if (mascotaActual  != null) {
-                    mascotaActual.agregarHistorial("\nAtendida en turno actual.");
+                    mascotaActual.setVecesAtendida(mascotaActual.getVecesAtendida()+1);
+                    mascotaActual.agregarHistorial("Atendida: " + mascotaActual.getVecesAtendida() + " veces.");
                     areaAtendiendo.setText(mascotaActual.toString());
                 } else {
                     areaAtendiendo.setText ("No hay mascotas en espera.");

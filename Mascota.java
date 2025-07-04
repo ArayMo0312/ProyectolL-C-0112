@@ -25,7 +25,7 @@ public class Mascota {
              + "Nombre: " + nombre + "\n"
              + "Especie: " + especie + "\n"
              + "Dueño: " + nombreDueño + "\n"
-             + "Historial:\n" + historial;
+             + "Historial:\n" + (vecesAtendida == 0 ? "Esta mascota no ha sido atendida aún." : historial);
     }
 
     // Getters
