@@ -42,4 +42,19 @@ public class Mascota {
     public void setNombreDueño(String nombreDueño) {this.nombreDueño = nombreDueño;}
     public void setVecesAtendida(int vecesAtendida) {this.vecesAtendida = vecesAtendida;}
     public void setHistorial (String historial) {this.historial = historial;}
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Mascota mascota = (Mascota) obj;
+        return id == mascota.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(id);
+    }
+
+
 }

@@ -114,6 +114,7 @@ public class HistorialMascotasPanel extends JPanel {
             cola.enqueue(m);
             ventanaPadre.actualizarCola();
             cola.guardarArchivoCola("cola.txt");
+            arbol.guardarEnArchivo("historial.txt");
             JOptionPane.showMessageDialog(this, "Mascota encolada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             
             

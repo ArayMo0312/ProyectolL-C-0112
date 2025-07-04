@@ -6,15 +6,17 @@ import javax.swing.*;
 
 public class ClinicaGUI extends JFrame {
     private ColaMascotas cola;
+    private Mascota mascotaActual;
     private ArbolMascotas arbol;
     private JTextArea areaCola; //cola de mascotas
     private JTextArea areaAtendiendo; // mascota siendo atendida
     private JButton botonAtender;
     private JButton botonAgregar;
 
-    public ClinicaGUI (ColaMascotas cola, ArbolMascotas arbol) {
+    public ClinicaGUI (ColaMascotas cola, ArbolMascotas arbol, Mascota mascotaActualP) {
         this.cola = cola;
         this.arbol = arbol;
+        this.mascotaActual = mascotaActualP;
 
         setTitle("Clínica Veterinaria - Cola de Espera");
         setSize(500, 600);
@@ -29,7 +31,7 @@ public class ClinicaGUI extends JFrame {
         JMenuItem guardarItem = new JMenuItem("Guardar estado");
         menuArchivo.add(guardarItem);
         guardarItem.addActionListener(e ->{ // Agrega la acción de llamar al método guardar al botón de guardar
-            cola.guardarArchivoCola("cola.txt");
+            cola.guardarArchivoCola("cola.txt", mascotaActual);
             arbol.guardarEnArchivo("historial.txt");
             JOptionPane.showMessageDialog(this, "Estado guardado en archivo.");
         });
@@ -55,15 +57,15 @@ public class ClinicaGUI extends JFrame {
 
         botonAtender.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Mascota atendida = cola.dequeue();
-                if (atendida  != null) {
-                    atendida.agregarHistorial("Atendida en turno actual.");
-                    areaAtendiendo.setText(atendida.toString());
+                mascotaActual = cola.dequeue();
+                if (mascotaActual  != null) {
+                    mascotaActual.agregarHistorial("\nAtendida en turno actual.");
+                    areaAtendiendo.setText(mascotaActual.toString());
                 } else {
                     areaAtendiendo.setText ("No hay mascotas en espera.");
                 }
                 actualizarCola();
-                cola.guardarArchivoCola("cola.txt");
+                cola.guardarArchivoCola("cola.txt", mascotaActual);
                 arbol.guardarEnArchivo("historial.txt");
             }
         });
@@ -85,7 +87,12 @@ public class ClinicaGUI extends JFrame {
             }
         });
         panelBotones.add(botonHistorial);
-
+        
+        if (mascotaActual != null) {
+            areaAtendiendo.setText(mascotaActual.toString());
+        } else {
+            areaAtendiendo.setText("No hay mascota en atención");
+        }
     }
     public void agregarNuevaMascota() { // ventana de input para el botón Agregar
         try {
